@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Nov-2022 às 21:47
--- Versão do servidor: 5.7.26-log
--- versão do PHP: 8.1.6
+-- Tempo de geração: 30-Nov-2022 às 13:50
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `nerdstore`
+-- Banco de dados: `store`
 --
 
 -- --------------------------------------------------------
@@ -88,9 +88,10 @@ CREATE TABLE `produtos` (
   `codigo` int(11) NOT NULL,
   `descricao` varchar(150) NOT NULL,
   `valor` decimal(10,2) NOT NULL,
-  `estoque` int(11) NOT NULL DEFAULT '0',
-  `ativo` tinyint(1) NOT NULL DEFAULT '1',
-  `observacao` text
+  `estoque` int(11) NOT NULL DEFAULT 0,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `observacao` text DEFAULT NULL,
+  `foto` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -103,9 +104,9 @@ CREATE TABLE `usuarios` (
   `codigo` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `senha` varchar(30) NOT NULL,
+  `senha` varchar(200) NOT NULL,
   `tipo_usuario` tinyint(1) NOT NULL,
-  `ativo` tinyint(1) NOT NULL DEFAULT '1',
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
   `endereco` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
