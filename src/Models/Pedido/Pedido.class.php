@@ -27,6 +27,7 @@ class Pedido{
 class PedidoItem{
     public function __construct(
         private int $produto_codigo = 0,
+        private string $produto_foto = "",
         private string $descricao = "",
         private float $valor = 0,
         private int $quantidade = 0
@@ -35,6 +36,8 @@ class PedidoItem{
     //Métodos Get
 
     public function getProdutoCodigo(){ return $this->produto_codigo; }
+
+    public function getProdutoFoto(){ return $this->produto_foto; }
 
     public function getDescricao(){ return $this->descricao; }
 
@@ -45,6 +48,8 @@ class PedidoItem{
     //Métodos Set
 
     public function setProdutoCodigo(int $produto_codigo){ $this->produto_codigo = $produto_codigo;}
+
+    public function setProdutoFoto(int $produto_foto){ $this->produto_foto = $produto_foto;}
 
     public function setDescricao(string $descricao){ $this->descricao = $descricao;}
 
