@@ -23,6 +23,26 @@ class EnderecoDAO extends Conexao
         $stm->execute();
 
         $this->db = null;
+
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function ObterEnderecoPorLogradouroNumeroBairro($logradouro, $numero, $bairro)
+    {
+        $sql = "SELECT codigo, logradouro, numero, bairro, cidade, cep,
+        uf, complemento FROM enderecos WHERE logradouro = ? AND numero = ? AND bairro = ?";
+
+        $stm = $this->db->prepare($sql);
+
+        $stm->bindValue(1, $logradouro);
+        $stm->bindValue(2, $numero);
+        $stm->bindValue(3, $bairro);
+
+        $stm->execute();
+
+        $this->db = null;
+
+        return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
     

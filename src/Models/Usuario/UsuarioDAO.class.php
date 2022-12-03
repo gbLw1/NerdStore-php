@@ -22,6 +22,25 @@ class UsuarioDAO extends Conexao
         $stm->execute();
 
         $this->db = null;
+
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function ObterUsuarioPorEmailSenha($email, $senha)
+    {
+        $sql = "SELECT codigo, nome, email, senha, tipo_usuario, ativo, endereco
+        FROM usuarios WHERE email = ? AND senha = ?";
+
+        $stm = $this->db->prepare($sql);
+
+        $stm->bindValue(1, $email);
+        $stm->bindValue(2, $senha);
+
+        $stm->execute();
+
+        $this->db = null;
+
+        return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
     
