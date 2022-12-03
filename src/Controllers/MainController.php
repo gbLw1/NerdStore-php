@@ -19,7 +19,19 @@
 
             else
                 return false;
-           
+        }
+
+        public function UsuarioAdm()
+        {
+            $tipoUsuario = $_SESSION["tipo_usuario"];
+            if ($tipoUsuario != 2)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
     }

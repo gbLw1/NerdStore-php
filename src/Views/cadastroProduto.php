@@ -5,9 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>Cadastro Produto</title>
+    <title>Cadastrar Produto</title>
 </head>
 <body>
+
+<?php
+        require_once "../Models/Produto.class.php";
+        require_once "../Controllers/MainController.php";
+        require_once "../Controllers/ProdutoController.php";
+
+        $controller = new ProdutoController();
+
+        $usuarioAutenticado = $controller->UsuarioEstaAutenticado();
+        $usuarioAdm = $controler->UsuarioAdm();
+
+        if($usuarioAutenticado && $usuarioAdm)
+        {
+          // verifica se o formulário foi submetido
+          // através do atributo "name" do button
+          if(isset($_POST["cadastrar"]))
+          {
+            // preencher args do produto
+            $produto = new Produto
+            (
+              descricao: $_POST["descricao"],
+              valor: $_POST["valor"],
+              estoque: $_POST["estoque"],
+              ativo: true,
+              observacao: $_POST["observacao"],
+              foto: $_POST["foto"]
+            );
+  
+            // func: cadastrar produto (controller)
+            $controller->CadastrarProduto($produto);
+          }
+        }
+        else
+        {
+          header("location:../index.php");
+        }
+
+  ?>
 
 <div class="container py-5">
   <h1>Cadastro de Produto</h1>
@@ -15,27 +53,27 @@
   <form>
     <div class="form-group">
       <label for="exampleFormControlInput1">Descrição</label>
-      <input type="text" class="form-control" id="descricao">
+      <input type="text" class="form-control" name="descricao" id="descricao">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlInput1">Valor</label>
-      <input type="text" class="form-control" id="valor">
+      <input type="text" class="form-control" name="valor" id="valor">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlInput1">Estoque</label>
-      <input type="number" class="form-control" id="estoque">
+      <input type="number" class="form-control" name="estoque" id="estoque">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Observação</label>
-      <textarea class="form-control" id="observacao" rows="3"></textarea>
+      <textarea class="form-control" name="observacao" id="observacao" rows="3"></textarea>
     </div>
 
     <div class="input-group mb-3 mt-2">
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="foto">
+        <input type="file" class="custom-file-input" name="foto" id="foto">
       </div>
     </div>
 
@@ -45,7 +83,7 @@
       <div>
       
       <div class="d-flex">
-        <button type="submit" class="btn btn-primary mb-2">Cadastrar</button>
+        <button class="btn btn-primary mb-2" name="cadastrar" type="submit">Cadastrar</button>
       </div>
       
     </div>
