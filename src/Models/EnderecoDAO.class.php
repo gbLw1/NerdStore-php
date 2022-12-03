@@ -62,7 +62,6 @@ class EnderecoDAO extends Conexao
         
         $stm->execute();
         
-        $this->db = null;
     }
 
     public function AtualizarEndereco(Endereco $endereco)

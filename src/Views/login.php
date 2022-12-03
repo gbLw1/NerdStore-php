@@ -23,9 +23,10 @@
   </head>
   <body class="text-center">
 
-    <?php 
-        require_once "../../Controllers/UsuarioController.php";
-        if($_POST)
+    <?php
+        require_once "../Controllers/MainController.php";
+        require_once "../Controllers/UsuarioController.php";
+        if(isset($_POST['entrar']))
         {
             $controller = new UsuarioController();
             $controller->Login($_POST["email"], md5($_POST["senha"]));
@@ -39,15 +40,15 @@
     <h1 class="h3 mb-3 fw-normal">NerdStore</h1>
 
     <div class="form-floating mt-2">
-      <input type="email" class="form-control" id="email" placeholder="nome@exemplo.com">
+      <input type="email" class="form-control" name="email" id="email" placeholder="nome@exemplo.com">
       <label for="email">Email</label>
     </div>
     <div class="form-floating my-2">
-      <input type="password" class="form-control" id="senha" placeholder="sua senha">
+      <input type="password" class="form-control" name="senha" id="senha" placeholder="sua senha">
       <label for="senha">Senha</label>
     </div>
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+    <button class="w-100 btn btn-lg btn-primary" name="entrar" type="submit">Entrar</button>
     <div class="d-flex">
         <p style="margin-right:5px;">Não possui uma conta? </p>
         <a href="">Clique Aqui</a>

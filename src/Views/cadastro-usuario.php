@@ -35,7 +35,7 @@
         if($usuarioAutenticado)
           header("location:../index.php");
 
-        if($_POST)
+        if(isset($_POST["cadastrar"]))
         {
           $senha = $_POST["senha"];
           $confirmarSenha = $_POST["confirmarSenha"];
@@ -48,7 +48,7 @@
             nome: $_POST["nome"],
             email: $_POST["email"],
             senha: md5($_POST["senha"]),
-            tipo_usuario: "Cliente",
+            tipo_usuario: 1,
             ativo: true,
             endereco: new Endereco
             (
@@ -74,67 +74,67 @@
       <h1 class="h3 my-4 fw-normal">Criar conta</h1>
 
       <div class="form-floating mb-2">
-        <input type="text" class="form-control" id="nome" placeholder="Seu nome">
+        <input type="text" class="form-control" name="nome" id="nome" placeholder="Seu nome">
         <label for="nome">Nome</label>
       </div>
 
       <div class="form-floating mb-2">
-        <input type="email" class="form-control" id="email" placeholder="nome@exemplo.com">
+        <input type="email" class="form-control" name="email" id="email" placeholder="nome@exemplo.com">
         <label for="email">Email</label>
       </div>
 
       <!-- Endereço -->
       <div class="row g-2">
         <div class="form-floating col-sm-9 pr-1 mb-2">
-          <input type="text" class="form-control" id="logradouro" placeholder="Logradouro">
+          <input type="text" class="form-control" name="logradouro" id="logradouro" placeholder="Logradouro">
           <label for="logradouro">Logradouro</label>
         </div>
 
         <div class="form-floating col-sm-3 pl-0 mb-2">
-          <input type="number" class="form-control" id="numero" placeholder="Número">
+          <input type="number" class="form-control" name="numero" id="numero" placeholder="Número">
           <label for="numero">Número</label>
         </div>
       </div>
 
       
       <div class="form-floating mb-2">
-        <input type="text" class="form-control" id="complemento" placeholder="Complemento">
+        <input type="text" class="form-control" name="complemento" id="complemento" placeholder="Complemento">
         <label for="complemento">Complemento</label>
       </div>
 
       <div class="form-floating mb-2">
-        <input type="text" class="form-control" id="bairro" placeholder="Bairro">
+        <input type="text" class="form-control" name="bairro" id="bairro" placeholder="Bairro">
         <label for="bairro">Bairro</label>
       </div>
 
       <div class="form-floating mb-2">
-        <input type="text" class="form-control" id="cidade" placeholder="Cidade">
+        <input type="text" class="form-control" name="cidade" id="cidade" placeholder="Cidade">
         <label for="cidade">Cidade</label>
       </div>
 
       <div class="row g-2">
         <div class="form-floating col-sm-6 mb-2">
-          <input type="text" class="form-control" id="cep" placeholder="Cep">
+          <input type="text" class="form-control" name="cep" id="cep" placeholder="Cep">
           <label for="cep">Cep</label>
         </div>
 
         <div class="form-floating col-sm-6 mb-2">
-          <input type="text" class="form-control" id="uf" placeholder="Uf">
+          <input type="text" class="form-control" name="uf" id="uf" placeholder="Uf">
           <label for="uf">Uf</label>
         </div>
       </div>
 
       <div class="form-floating mb-2">
-        <input type="password" class="form-control" id="senha" placeholder="sua senha">
+        <input type="password" class="form-control" name="senha" id="senha" placeholder="sua senha">
         <label for="senha">Senha</label>
       </div>
 
       <div class="form-floating mb-2">
-        <input type="password" class="form-control" id="confirmarSenha" placeholder="confirme sua senha">
+        <input type="password" class="form-control" name="confirmarSenha" id="confirmarSenha" placeholder="confirme sua senha">
         <label for="confirmarSenha">Confirme sua senha</label>
       </div>
 
-      <button class="w-100 btn btn-lg btn-primary my-4" type="submit">Cadastrar</button>
+      <button class="w-100 btn btn-lg btn-primary my-4" name="cadastrar" type="submit">Cadastrar</button>
       <div class="d-flex">
           <p style="margin-right:5px;">Já possui uma conta? </p>
           <a href="">Faça Login.</a>

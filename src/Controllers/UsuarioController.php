@@ -9,37 +9,26 @@ class UsuarioController extends MainController
 {
     public function Login($email, $senha)
     {
-        if($_POST)
-        {
-            parent::IniciarSessionStorage();
-
-            $usuarioDAO = new UsuarioDAO();
-
-            $result = $usuarioDAO->ObterUsuarioPorEmailSenha($email, $senha);
-
-            if(is_array($result) && count($result) > 0)
-            {
-                $_SESSION["codigo"] = $result[0]->codigo;
-                $_SESSION["nome"] = $result[0]->nome;
-                $_SESSION["tipo_usuario"] = $result[0]->tipo_usuario;
-
-                header("location:../index.php");
-            }
-
-            else
-            {
-                echo "<script>alert('Email ou senha incorretos.')</script>";
-            }
-        }
-    }
-
-    public function Logout()
-    {
         parent::IniciarSessionStorage();
-        $_SESSION = array(); 
-        session_destroy(); 
 
-        header("location:../Views/index.php");
+        $usuarioDAO = new UsuarioDAO();
+
+        $result = $usuarioDAO->ObterUsuarioPorEmailSenha($email, $senha);
+
+        if(is_array($result) && count($result) > 0)
+        {
+            $_SESSION["codigo"] = $result[0]->codigo;
+            $_SESSION["nome"] = $result[0]->nome;
+            $_SESSION["tipo_usuario"] = $result[0]->tipo_usuario == 1 ? "Cliente" : "Admin";
+
+            header("location:../index.php");
+        }
+
+        else
+        {
+            echo "<script>alert('Email ou senha incorretos.')</script>";
+        }
+        
     }
 
     public function CadastrarUsuario(Usuario $usuario)
@@ -52,7 +41,7 @@ class UsuarioController extends MainController
 
             foreach($erros as $erro)
             {
-                $mensagem += "$erro <br>";
+                $mensagem .= $erro . "\\n";
             }
 
             echo "<script>alert('$mensagem')</script>";
