@@ -17,7 +17,7 @@
         $controller = new ProdutoController();
 
         $usuarioAutenticado = $controller->UsuarioEstaAutenticado();
-        $usuarioAdm = $controler->UsuarioAdm();
+        $usuarioAdm = $controller->UsuarioAdm();
 
         if($usuarioAutenticado && $usuarioAdm)
         {
@@ -29,11 +29,12 @@
             $produto = new Produto
             (
               descricao: $_POST["descricao"],
-              valor: $_POST["valor"],
-              estoque: $_POST["estoque"],
+              valor: floatval(str_replace(",", ".", $_POST["valor"])),
+              estoque: intval($_POST["estoque"]),
               ativo: true,
               observacao: $_POST["observacao"],
-              foto: $_POST["foto"]
+              foto: $_FILES["foto"]["name"],
+              fotoArquivo: $_FILES["foto"]
             );
   
             // func: cadastrar produto (controller)
@@ -50,7 +51,7 @@
 <div class="container py-5">
   <h1>Cadastro de Produto</h1>
 
-  <form>
+  <form action="#" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="exampleFormControlInput1">Descrição</label>
       <input type="text" class="form-control" name="descricao" id="descricao">
@@ -73,7 +74,10 @@
 
     <div class="input-group mb-3 mt-2">
       <div class="custom-file">
-        <input type="file" class="custom-file-input" name="foto" id="foto">
+        <input type="file" class="custom-file-input" name="foto" id="foto" accept="image/*" onchange="exibirPreview(this);">
+      </div>
+      <div class="form-group">
+          <img src="" id="img">
       </div>
     </div>
 
@@ -89,6 +93,22 @@
     </div>
   </form>
 </div>
+<script>
+  function exibirPreview(img)
+  {
+      if(img.files && img.files[0])
+      {
+        var reader = new FileReader();
+        reader.onload = function(e){
+          $('#img')
+          .attr('src', e.target.result)
+          .width(150)
+          .height(100);
+        };
+        reader.readAsDataURL(img.files[0]);
+      }
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

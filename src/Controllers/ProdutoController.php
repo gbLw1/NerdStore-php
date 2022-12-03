@@ -4,8 +4,12 @@ require_once realpath(dirname(__FILE__)) . "/../Models/Conexao.php";
 require_once realpath(dirname(__FILE__)) . "/../Models/Produto.class.php";
 require_once realpath(dirname(__FILE__)) . "/../Models/ProdutoDAO.class.php";
 
+define("CAMINHO_IMG", "../Views/produtos_imagens/");
+
 class ProdutoController extends MainController
 {
+    
+
     public function CadastrarProduto(Produto $produto)
     {
         $erros = $this->ValidarArgsProduto($produto);
@@ -26,6 +30,8 @@ class ProdutoController extends MainController
             $produtoDAO = new ProdutoDAO();
 
             $produtoDAO->AdicionarProduto($produto);
+
+            $this->SalvarImagem($produto->getFotoArquivo());
 
             header("location:../index.php");
         }
@@ -56,6 +62,12 @@ class ProdutoController extends MainController
         }
 
         return $erros;
+    }
+
+    public function SalvarImagem($imagem)
+    {
+        $uploadFile = CAMINHO_IMG . $imagem["name"];
+        move_uploaded_file($imagem["tmp_name"], $uploadFile);
     }
 }
 

@@ -2,6 +2,8 @@
 
 class Produto{
     public function __construct(
+        private $fotoArquivo,
+
         private int $codigo = 0,
         private string $descricao = "",
         private float $valor = 0,
@@ -9,6 +11,7 @@ class Produto{
         private bool $ativo = true,
         private string $observacao = "",
         private string $foto = ""
+        
     ){}
 
     // Métodos Get
@@ -26,6 +29,8 @@ class Produto{
     public function getObservacao(){ return $this->observacao; }
 
     public function getFoto(){ return $this->foto; }
+
+    public function getFotoArquivo(){ return $this->fotoArquivo; }
 
     //Métodos Set
 
