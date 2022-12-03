@@ -7,7 +7,8 @@ class Produto{
         private float $valor = 0,
         private int $estoque = 0,
         private bool $ativo = true,
-        private string $observacao = ""
+        private string $observacao = "",
+        private string $foto = ""
     ){}
 
     // Métodos Get
@@ -24,6 +25,8 @@ class Produto{
 
     public function getObservacao(){ return $this->observacao; }
 
+    public function getFoto(){ return $this->foto; }
+
     //Métodos Set
 
     public function setCodigo(int $codigo){ $this->codigo = $codigo;}
@@ -37,6 +40,8 @@ class Produto{
     public function setAtivo(bool $ativo){ $this->ativo = $ativo;}
 
     public function setObservacao(string $observacao){ $this->observacao = $observacao;}
+
+    public function setFoto(string $foto){ $this->foto = $foto; }
 }
 
 ?>
