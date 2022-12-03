@@ -16,7 +16,7 @@
 
 <body class="text-center">
 
-<?php require_once "layout/header.php" ?>
+<?php require_once "header.php" ?>
 
   <div class="container m-auto" style="padding-top: 10px;min-height:100vh;">
     <div class="row">
@@ -93,7 +93,7 @@
   </footer>
 </div>
 
-  <?php require_once "layout/footer.php" ?>
+  <?php require_once "footer.php" ?>
     
 </body>
 </html>

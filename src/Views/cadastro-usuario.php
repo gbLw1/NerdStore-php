@@ -24,9 +24,10 @@
   <body class="text-center">
 
   <?php
-        require_once "../../Models/Endereco/Endereco.class.php";
-        require_once "../../Models/Usuario/Usuario.class.php";
-        require_once "../../Controllers/UsuarioController.php";
+        require_once "../Models/Endereco.class.php";
+        require_once "../Models/Usuario.class.php";
+        require_once "../Controllers/MainController.php";
+        require_once "../Controllers/UsuarioController.php";
         $controller = new UsuarioController();
 
         $usuarioAutenticado = $controller->UsuarioEstaAutenticado();

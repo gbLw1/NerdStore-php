@@ -22,7 +22,7 @@
                         <div class="widget-header">
                             <small class="title text-muted">Bem Vindo!</small>
                             <div>
-                                <a href="">Criar Conta</a> <span> | </span>
+                                <a href="Views/cadastro-usuario.php">Criar Conta</a> <span> | </span>
                                 <a href=""> Login</a>
                             </div>
                         </div>

@@ -1,9 +1,9 @@
 <?php
 
-require_once "../Data/Conexao.php";
-require_once "../Models/Endereco/EnderecoDAO.class.php";
-require_once "../Models/Usuario/Usuario.class.php";
-require_once "../Models/Usuario/UsuarioDAO.class.php";
+require_once realpath(dirname(__FILE__)) . "/../Models/Conexao.php";
+require_once realpath(dirname(__FILE__)) . "/../Models/EnderecoDAO.class.php";
+require_once realpath(dirname(__FILE__)) . "/../Models/Usuario.class.php";
+require_once realpath(dirname(__FILE__)) . "/../Models/UsuarioDAO.class.php";
 
 class UsuarioController extends MainController
 {

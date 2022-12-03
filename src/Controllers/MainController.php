@@ -1,6 +1,7 @@
 <?php
 
-    class MainController
+    require_once realpath(dirname(__FILE__)) . "/../Models/Conexao.php";
+    class MainController extends Conexao
     {
         public function IniciarSessionStorage()
         {

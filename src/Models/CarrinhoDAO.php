@@ -1,7 +1,5 @@
 <?php
 
-require_once "../../Data/Conexao.php";
-
 class CarrinhoDAO extends Conexao
 {
     public function __construct()
