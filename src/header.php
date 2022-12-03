@@ -45,7 +45,7 @@
                                 echo "<div class='widget-header'>
                                             <small class='title text-muted'>Bem Vindo!</small>
                                             <div>
-                                                <a href'Views/cadastro-usuario.php'>Criar Conta</a> <span> | </span>
+                                                <a href='Views/cadastro-usuario.php'>Criar Conta</a> <span> | </span>
                                                 <a href='Views/login.php'> Login</a>
                                             </div>
                                         </div>";
