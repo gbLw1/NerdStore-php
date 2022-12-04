@@ -9,33 +9,84 @@
 </head>
 <body>
 
+<?php
+        require_once "../Models/Produto.class.php";
+        require_once "../Controllers/MainController.php";
+        require_once "../Controllers/ProdutoController.php";
+
+        $controller = new ProdutoController();
+
+        $usuarioAutenticado = $controller->UsuarioEstaAutenticado();
+        $usuarioAdm = $controller->UsuarioAdm();
+
+        if($usuarioAutenticado && $usuarioAdm)
+        {
+          if($_GET)
+          {
+            $produto = new Produto($_GET["id"]);
+            $result = $controller->ObterProdutoPorCodigo($_GET["id"]);
+          }
+
+          // verifica se o formulário foi submetido
+          // através do atributo "name" do button
+          if(isset($_POST["alterar"]))
+          {
+            // preencher args do produto
+            $produto = new Produto
+            (
+              descricao: $_POST["descricao"],
+              valor: floatval(str_replace(",", ".", $_POST["valor"])),
+              estoque: intval($_POST["estoque"]),
+              ativo: true,
+              observacao: $_POST["observacao"],
+              foto: $_FILES["foto"]["name"],
+              fotoArquivo: $_FILES["foto"]
+            );
+  
+            // func: cadastrar produto (controller)
+            $controller->AtualizarProduto($produto);
+          }
+        }
+        else
+        {
+          header("location:../index.php");
+        }
+
+  ?>
+
 <div class="container py-5">
   <h1>Alterar Produto</h1>
 
-  <form>
+  <form action="#" method="POST" enctype="multipart/form-data">
+
+    <input type="hidden" name="codigo" value="<?php echo $result[0]->codigo;?>">
+
     <div class="form-group">
       <label for="exampleFormControlInput1">Descrição</label>
-      <input type="text" class="form-control" id="descricao">
+      <input type="text" class="form-control" value="<?php echo $result[0]->descricao;?>" name="descricao" id="descricao">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlInput1">Valor</label>
-      <input type="text" class="form-control" id="valor">
+      <input type="text" class="form-control" value="<?php echo $result[0]->valor;?>" name="valor" id="valor">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlInput1">Estoque</label>
-      <input type="number" class="form-control" id="estoque">
+      <input type="number" class="form-control" value="<?php echo $result[0]->estoque;?>" name="estoque" id="estoque">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Observação</label>
-      <textarea class="form-control" id="observacao" rows="3"></textarea>
+      <textarea class="form-control" value="<?php echo $result[0]->observacao;?>" name="observacao" id="observacao" rows="3"></textarea>
     </div>
 
     <div class="input-group mb-3 mt-2">
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="foto">
+        <input type="file" class="custom-file-input" name="foto" id="foto" accept="image/*">
+      </div>
+      <div class="form-group">
+          <img src="<?php echo $result[0]->foto;?>" id="imgPreview">
       </div>
     </div>
 
@@ -45,12 +96,20 @@
       <div>
       
       <div class="d-flex">
-        <button type="submit" class="btn btn-success mb-2">Alterar</button>
+        <button class="btn btn-primary mb-2" name="alterar" type="submit">Alterar</button>
       </div>
       
     </div>
   </form>
 </div>
+<script>
+  foto.onchange = evt => {
+    const [file] = foto.files
+    if(file){
+      imgPreview.src = URL.createObjectURL(file)
+    } 
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

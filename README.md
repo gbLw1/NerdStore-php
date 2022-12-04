@@ -5,7 +5,7 @@
 - 🔐 painel adm 🔐
   - [ ] listagem de produtos
   - [x] cadastro produto
-  - [ ] alterar produto
+  - [x] alterar produto
   - [ ] excluir produto
 
 - Auth
