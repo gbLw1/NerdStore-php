@@ -45,32 +45,47 @@ class CarrinhoController extends MainController
     public function AddItem($userId, $produto, $quantidade)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinho = $carrinhoDAO->AddCarrinhoItem($userId, $produto, $quantidade);
+        $carrinhoItens = $carrinhoDAO->ObterCarrinhoItens($userId);
+
+        if(is_array($carrinhoItens) && count($carrinhoItens) > 0)
+        {
+            foreach($carrinhoItens as $item)
+            {
+                //Produto a ser adicionado já está no carrinho
+                if($item->produtoCodigo == $produto->codigo){
+                    $this->AdicionarQuantidadeItemExistente($userId, $produto->codigo, $quantidade);
+                    return;
+                }      
+                
+            }
+        }
+
+        $carrinhoDAO = new CarrinhoDAO();
+        $carrinhoDAO->AddCarrinhoItem($userId, $produto, $quantidade);
+        header("location:carrinho.php");
+            
     }
 
     public function AtualizarItemQuantidade($id, $idProduto, $quantidade)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinho = $carrinhoDAO->ObterCarrinho($id);
+        $carrinhoDAO->AtualizarCarrinhoItemQuantidade($id, $idProduto, $quantidade);
 
-        $produto = new Produto();
-        $produto->setId($idProduto);
+        header("location:carrinho.php");
+    }
 
-        $carrinho->AtualizarItemQuantidade($produto, $quantidade);
+    public function AdicionarQuantidadeItemExistente($id, $idProduto, $quantidade)
+    {
+        $carrinhoDAO = new CarrinhoDAO();
+        $carrinhoDAO->AdicionarQuantidadeItemExistente($id, $idProduto, $quantidade);
 
-        $carrinhoDAO->AtualizarCarrinho($carrinho);
+        header("location:carrinho.php");
     }
 
     public function RemoverItem($id, $idProduto)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinho = $carrinhoDAO->ObterCarrinho($id);
-
-        $produto = new Produto();
-        $produto->setId($idProduto);
-
-        $carrinho->RemoverItem($produto);
-
-        $carrinhoDAO->AtualizarCarrinho($carrinho);
+        $carrinhoDAO->DeletarCarrinhoItem($id, $idProduto);
+        header("location:carrinho.php");
     }
 }

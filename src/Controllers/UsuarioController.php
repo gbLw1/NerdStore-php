@@ -21,7 +21,7 @@ class UsuarioController extends MainController
             $_SESSION["nome"] = $result[0]->nome;
             $_SESSION["tipo_usuario"] = $result[0]->tipo_usuario;
 
-            header("location:../index.php");
+            header("location:index.php");
         }
 
         else

@@ -18,6 +18,7 @@
   <?php 
     require_once "header.php"; 
     require_once "../Controllers/MainController.php";
+    require_once "../Controllers/CarrinhoController.php";
     require_once "../Controllers/ProdutoController.php";
   ?>
     
@@ -28,11 +29,24 @@
         {
             $produtoId = $_GET["id"];
             $controller = new ProdutoController();
+            $carrinhoController = new CarrinhoController();
 
             $produto = $controller->ObterProdutoPorCodigo($produtoId);
 
             if(is_array($produto))
             {
+                if(isset($_POST["adicionarAoCarrinho"]))
+                {
+                    $quantidade = $_POST['quantidade'];
+                    if($produto[0]->estoque < $quantidade)
+                        echo "<script>alert('Quantidade acima do estoque atual.')</script>";
+
+                    else
+                    {
+                        $carrinhoController->AddItem($_SESSION['codigo'], $produto[0], $quantidade);
+                    }
+                }
+
                 $valorFormatado = number_format($produto[0]->valor, 2, ',', '.');
                 echo "<div class='card'>
                 <div class='row no-gutters'>
@@ -45,7 +59,7 @@
                     </aside>
                     <main class='col-md-6 border-left'>
                         <article class='content-body'>
-                            <form method='post' action='/shopping-cart/add-item'>
+                            <form method='post' action='#'>
                             <h2 class='title'>{$produto[0]->descricao}</h2>     
           
                                 <div class='mb-3'>
@@ -77,13 +91,15 @@
                             <span class='text'>Adicionar ao Carrinho</span> <i class='fas fa-shopping-cart'> &nbsp;</i>
                         </button>
 
-                                        <a class='btn  btn-info' href='../index.php'>
+                                        <a class='btn  btn-info' href='index.php'>
                                             <span class='text'>Voltar</span>
                                         </a>
                                 </article>
                             </main>
                         </div>
                     </div>";
+
+                    
                 }
                                 
           
@@ -95,7 +111,7 @@
                                     <p> Sem Estoque!</p>
                                         <br/>
           
-                                <a class='btn  btn-info' href='../index.php'>
+                                <a class='btn  btn-info' href='index.php'>
                                     <span class='text'>Voltar</span>
                                 </a>
                         </article>
@@ -106,10 +122,7 @@
             }
         }
 
-        if($_POST['adicionarAoCarrinho'])
-        {
-
-        }
+        
 
     ?>
     

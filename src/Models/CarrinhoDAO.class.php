@@ -39,7 +39,7 @@ class CarrinhoDAO extends Conexao
 
     public function ObterValorTotalCarrinho($userId)
     {
-        $sql = "SELECT SUM(p.valor) AS total FROM produtos p INNER JOIN carrinhos c ON (p.codigo = c.produto)
+        $sql = "SELECT SUM(p.valor * c.quantidade) AS total FROM produtos p INNER JOIN carrinhos c ON (p.codigo = c.produto)
                 WHERE c.usuario = ? GROUP BY c.usuario";
 
         $stm = $this->db->prepare($sql);
@@ -74,7 +74,7 @@ class CarrinhoDAO extends Conexao
         $stm = $this->db->prepare($sql); 
 
         $stm->bindValue(1, $userId);
-        $stm->bindValue(2, $produto->getCodigo());
+        $stm->bindValue(2, $produto->codigo);
         $stm->bindValue(3, $qtde);
         
         $stm->execute();
@@ -91,7 +91,23 @@ class CarrinhoDAO extends Conexao
 
         $stm->bindValue(1, $qtde);
         $stm->bindValue(2, $userId);
-        $stm->bindValue(3, $produto->getCodigo());
+        $stm->bindValue(3, $produto);
+
+        $stm->execute();
+
+        $this->db = null;
+    }
+
+    public function AdicionarQuantidadeItemExistente($userId, $produto, $qtde)
+    {
+        $sql = "UPDATE carrinhos SET quantidade = quantidade + ?
+                WHERE usuario = ? AND produto = ?";
+
+        $stm = $this->db->prepare($sql);
+
+        $stm->bindValue(1, $qtde);
+        $stm->bindValue(2, $userId);
+        $stm->bindValue(3, $produto);
 
         $stm->execute();
 
@@ -105,7 +121,7 @@ class CarrinhoDAO extends Conexao
         $stm = $this->db->prepare($sql);
 
         $stm->bindValue(1, $userId);
-        $stm->bindValue(2, $produto->getCodigo());
+        $stm->bindValue(2, $produto);
 
         $stm->execute();
 

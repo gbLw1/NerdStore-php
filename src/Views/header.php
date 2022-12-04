@@ -32,7 +32,7 @@
                             echo "<div class='widget-header'>
                                             <small class='title text-muted'>Bem Vindo!</small>
                                             <div>
-                                                <a href='cadastro-usuario.php'>Pedidos</a> <span> | </span>
+                                                <a href='pedidos.php'>Pedidos</a> <span> | </span>
                                                 <a href='carrinho.php'> Carrinho ({$carrinhoController->ObterCarrinhoItensQuantidade($_SESSION["codigo"])})</a> <span> | </span>
                                                 <a href='logout.php'> Logout</a>
                                             </div>

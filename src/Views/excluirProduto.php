@@ -32,10 +32,10 @@
           if(isset($_POST["excluir"]))
           {
             // preencher args do produto
-            $produto = new Produto(codigo: $_GET["id"]);
+            $produtoCodigo = $_GET["id"];
   
             // func: excluir produto (controller)
-            $controller->AtualizarProduto($produto->getCodigo());
+            $controller->ExcluirProduto($produtoCodigo);
           }
         }
         else

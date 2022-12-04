@@ -31,6 +31,20 @@
 
         if(!$usuarioAutenticado)
             header("location:login.php");
+
+        if(isset($_POST["removerItem"]))
+        {
+            $codigoProduto = $_POST["produto"];
+            $controller->RemoverItem($_SESSION["codigo"], $codigoProduto);
+        }
+
+        if(isset($_POST['atualizarQuantidade']))
+        {
+            $codigoProduto = $_POST["produto"];
+            $quantidade = $_POST["quantidade"];
+
+            $controller->AtualizarItemQuantidade($_SESSION["codigo"], $codigoProduto, $quantidade);
+        }
     
     ?>
 
@@ -67,14 +81,14 @@
                                     <td>
                                         <figure class='itemside'>
                                             <div class='aside'>
-                                                <img src='/produtos_imagens/{$item->produtoFoto}'
+                                                <img src='produtos_imagens/{$item->produtoFoto}'
                                                     alt='produto' width='80' height='80' class='img-sm'>
                                             </div>
                                             <figcaption class='info'>
-                                                <a href='ProdutoDetalhe'>
+                                                <a href='detalhes-produto.php?id={$item->produtoCodigo}'>
                                                     <h6 style='padding-top: 10px' class='title text-dark'>{$item->descricao}</h6>
                                                 </a>
-                                                <p class='text-muted small'>{$item->quantidade}</p>
+                                                <p class='text-muted small'>qtde. {$item->quantidade}</p>
                                             </figcaption>
                                         </figure>
                                     </td>
@@ -87,7 +101,7 @@
                                     <form method='post' action='#'>
                                         <input type='hidden' value='{$item->produtoCodigo}' name='produto' />
                                         <td>
-                                            <select id='Quantidade' id='qtde' name='Quantity' class='form-select'>
+                                            <select id='Quantidade' id='qtde' name='quantidade' class='form-select'>
                                                 <option value='1'>1</option>
                                                 <option value='2'>2</option>
                                                 <option value='3'>3</option>
@@ -104,10 +118,10 @@
                                         </td>
                                     </form>
                                     <td>
-                                        <form method='post' action='#' name='removerItem'>
+                                        <form method='post' action='#'>
                                         <input type='hidden' value='{$item->produtoCodigo}' name='produto' />
                                             <div>
-                                                <button type='submit' class='btn btn-danger'>
+                                                <button type='submit' name='removerItem' class='btn btn-danger'>
                                                     <i class='fas fa-trash-alt'></i>
                                                 </button>
                                             </div>
