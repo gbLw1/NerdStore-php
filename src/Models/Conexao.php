@@ -6,6 +6,6 @@ abstract class Conexao
 	{
 		$parametros = "mysql:host=localhost;dbname=nerdstore;charset=utf8mb4";
 		
-		$this->db = new PDO($parametros, "root", "123456789");
+		$this->db = new PDO($parametros, "root", "");
 	}
 }

@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `nerdstore` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `nerdstore`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: nerdstore
@@ -34,7 +32,7 @@ CREATE TABLE `carrinhos` (
   KEY `fk_produto_carrinho` (`produto`),
   CONSTRAINT `fk_produto_carrinho` FOREIGN KEY (`produto`) REFERENCES `produtos` (`codigo`),
   CONSTRAINT `fk_usuario_carrinho` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +61,7 @@ CREATE TABLE `enderecos` (
   `uf` char(2) NOT NULL,
   `complemento` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +70,7 @@ CREATE TABLE `enderecos` (
 
 LOCK TABLES `enderecos` WRITE;
 /*!40000 ALTER TABLE `enderecos` DISABLE KEYS */;
-INSERT INTO `enderecos` VALUES (3,'rua teste','123','teste','teste','12202-202','SP','teste'),(4,'Teste','123','Bairro teste','Jaú ','17202-120','SP','');
+INSERT INTO `enderecos` VALUES (3,'rua teste','123','teste','teste','12202-202','SP','teste'),(4,'Teste','123','Bairro teste','Jaú ','17202-120','SP',''),(5,'Teste','123','Bairro teste','Jaú ','12202-202','Sp','');
 /*!40000 ALTER TABLE `enderecos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +88,7 @@ CREATE TABLE `pedidos` (
   PRIMARY KEY (`codigo`),
   KEY `fk_usuario` (`usuario`),
   CONSTRAINT `fk_usuario` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +97,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
+INSERT INTO `pedidos` VALUES (1,1,123.12),(2,1,38.98),(3,1,8.00),(4,1,12.50),(5,1,8.00),(6,1,52.48),(7,2,24.99),(8,2,8.25);
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +120,7 @@ CREATE TABLE `pedidos_detalhe` (
   KEY `fk_produto` (`produto`),
   CONSTRAINT `fk_pedido` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`codigo`),
   CONSTRAINT `fk_produto` FOREIGN KEY (`produto`) REFERENCES `produtos` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +129,7 @@ CREATE TABLE `pedidos_detalhe` (
 
 LOCK TABLES `pedidos_detalhe` WRITE;
 /*!40000 ALTER TABLE `pedidos_detalhe` DISABLE KEYS */;
+INSERT INTO `pedidos_detalhe` VALUES (1,1,1,'Teste',123.12,3),(2,2,3,'Caneta',1.00,3),(3,2,6,'Lapis de cor',12.99,3),(4,2,4,'Mochila',24.99,1),(5,3,2,'Cola Bastão PRITT',2.50,2),(6,3,3,'Caneta',1.00,3),(7,4,2,'Cola Bastão PRITT',2.50,5),(8,5,3,'Caneta',1.00,3),(9,5,2,'Cola Bastão PRITT',2.50,2),(10,6,2,'Cola Bastão PRITT',2.50,1),(11,6,4,'Mochila',24.99,2),(12,7,4,'Mochila',24.99,1),(13,8,5,'Borracha',1.75,3),(14,8,3,'Caneta',1.00,3);
 /*!40000 ALTER TABLE `pedidos_detalhe` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -172,7 +172,7 @@ CREATE TABLE `produtos` (
   `observacao` text,
   `foto` varchar(200) NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,6 +181,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` VALUES (1,'Teste',123.12,7,0,'teste','ImagemEvento.jpg'),(2,'Cola Bastão PRITT',2.50,2,1,'Cola bastão PRITT original 40g','cola_bastao.jfif'),(3,'Caneta',1.00,2,1,'Caneta azul BIC.','caneta.jfif'),(4,'Mochila',24.99,5,1,'Mochila azul da marca Só Deus Sabe.','muchila.jfif'),(5,'Borracha',1.75,12,1,'Borracha branca fera demais.','borracha.jfif'),(6,'Lapis de cor',12.99,4,1,'Lapis de cor Faber-Castel','lapis_cor.png'),(7,'produto teste alteracao',13.13,15,0,'teste alteracao','estojo.jfif'),(8,'Produto teste alteracao',125.32,12,0,'teste alteracao','caneta.jfif');
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +203,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`codigo`),
   KEY `fk_endereco` (`endereco`),
   CONSTRAINT `endereco_usuario` FOREIGN KEY (`endereco`) REFERENCES `enderecos` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +212,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Leonardo','leonardo.teste@gmail.com','698dc19d489c4e4db73e28a713eab07b',2,1,3),(2,'Teste','teste_cadastro@teste.com','698dc19d489c4e4db73e28a713eab07b',1,1,4);
+INSERT INTO `usuarios` VALUES (1,'Leonardo','leonardo.teste@gmail.com','698dc19d489c4e4db73e28a713eab07b',2,1,3),(2,'Teste','teste_cadastro@teste.com','698dc19d489c4e4db73e28a713eab07b',1,1,4),(3,'Cliente de teste','email@email.com','698dc19d489c4e4db73e28a713eab07b',1,1,4);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -224,4 +225,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-04 16:54:20
+-- Dump completed on 2022-12-04 18:59:57
