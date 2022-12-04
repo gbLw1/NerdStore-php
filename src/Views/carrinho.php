@@ -52,7 +52,7 @@
                         <tbody>
 
                         <?php 
-                            $carrinhoItens = $controller->ObterCarrinho($_SESSION["codigo"]);
+                            $carrinhoItens = $controller->ObterCarrinhoItens($_SESSION["codigo"]);
 
                             if(is_array($carrinhoItens) && count($carrinhoItens) > 0)
                             {

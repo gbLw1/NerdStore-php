@@ -29,7 +29,7 @@
 
             $carrinhoController = new CarrinhoController();
             $pedidoController = new PedidoController();
-            $carrinhoItens = $carrinhoController->ObterCarrinho($_SESSION["codigo"]);
+            $carrinhoItens = $carrinhoController->ObterCarrinhoItens($_SESSION["codigo"]);
 
             if(count($carrinhoItens) <= 0)
             {
