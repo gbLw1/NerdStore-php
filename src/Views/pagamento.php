@@ -58,7 +58,7 @@
                     return;
                 }
 
-                $valor_total += $item->valor;
+                $valor_total += $item->valor * $item->quantidade;
             }
 
             $pedidoController->AdicionarPedido($_SESSION["codigo"], $valor_total);
