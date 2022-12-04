@@ -69,9 +69,19 @@ class CarrinhoController extends MainController
     public function AtualizarItemQuantidade($id, $idProduto, $quantidade)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinhoDAO->AtualizarCarrinhoItemQuantidade($id, $idProduto, $quantidade);
+        $produtoDAO = new ProdutoDAO();
+        $produto = $produtoDAO->ObterProdutoPorId($idProduto);
 
-        header("location:carrinho.php");
+        if($quantidade > $produto[0]->estoque){
+            echo "<script>alert('O produto {$produto[0]->descricao} possui somente {$produto[0]->estoque} em estoque')</script>";
+        }
+
+        else{
+
+            $carrinhoDAO->AtualizarCarrinhoItemQuantidade($id, $idProduto, $quantidade);
+
+            header("location:carrinho.php");
+        }
     }
 
     public function AdicionarQuantidadeItemExistente($id, $idProduto, $quantidade)
