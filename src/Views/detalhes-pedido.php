@@ -42,7 +42,7 @@
         
         if($pedido[0]->usuario != $_SESSION["codigo"])
         {
-          header("location:../index.php");
+          header("location:index.php");
         }
       }
     }
@@ -53,7 +53,7 @@
     <div class="col-md-12" style="padding-bottom: 35px">
       <article class="card">
         <header class="card-header">
-          <b class="d-inline-block mr-3">Pedido ID: <?php echo "#{$pedido->codigo}"; ?> <span class='badge text-bg-primary'>Aprovado</span></b>
+          <b class="d-inline-block mr-3">Pedido ID: <?php echo "#{$pedido[0]->codigo}"; ?> <span class='badge text-bg-primary'>Aprovado</span></b>
         </header>
         <div class="card-body">
           <h6 class="text-muted">Pagamento</h6>
@@ -63,7 +63,7 @@
           </span>
           <p style="margin-top: 20px">
           <?php
-            $ValorFormatado = number_format($pedido->valor_total, 2, ',', '.');
+            $ValorFormatado = number_format($pedido[0]->valor_total, 2, ',', '.');
             echo "<span class='b'>Total: R$ {$ValorFormatado}</span>";
           ?>
             
@@ -73,14 +73,14 @@
 
           <div class="row">
           <?php 
-            $pedidoDetalhe = $controller->ObterPedidoDetalhe($pedido->codigo);
+            $pedidoDetalhe = $controller->ObterPedidoDetalhe($pedido[0]->codigo);
 
             if(is_array($pedidoDetalhe) && count($pedidoDetalhe) > 0)
             {
               foreach($pedidoDetalhe as $item)
               {
                 $valorFormatado = number_format($item->valor, 2, ',', '.');;
-                $valorTotalFormatado = number_format($item->valor * $item_quantidade, 2, ',', '.');
+                $valorTotalFormatado = number_format($item->valor * $item->quantidade, 2, ',', '.');
 
                 echo "<div class='col-md-4'>
                 <figure class='itemside  mb-3'>

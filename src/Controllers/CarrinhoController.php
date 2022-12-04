@@ -88,4 +88,11 @@ class CarrinhoController extends MainController
         $carrinhoDAO->DeletarCarrinhoItem($id, $idProduto);
         header("location:carrinho.php");
     }
+
+    public function ExcluirCarrinho($usuarioId)
+    {
+        $carrinhoDAO = new CarrinhoDAO();
+        $carrinhoDAO->DeletarCarrinho($usuarioId);
+        header("location:pedidos.php");
+    }
 }

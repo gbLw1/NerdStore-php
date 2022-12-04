@@ -127,4 +127,17 @@ class CarrinhoDAO extends Conexao
 
         $this->db = null;
     }
+
+    public function DeletarCarrinho($userId)
+    {
+        $sql = "DELETE FROM carrinhos WHERE usuario = ?";
+        
+        $stm = $this->db->prepare($sql);
+
+        $stm->bindValue(1, $userId);
+
+        $stm->execute();
+
+        $this->db = null;
+    }
 }

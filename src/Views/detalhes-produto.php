@@ -37,6 +37,12 @@
             {
                 if(isset($_POST["adicionarAoCarrinho"]))
                 {
+                    $usuarioAutenticado = $controller->UsuarioEstaAutenticado();
+
+                    if(!$usuarioAutenticado){
+                        header("location:login.php");
+                        return;
+                    }
                     $quantidade = $_POST['quantidade'];
                     if($produto[0]->estoque < $quantidade)
                         echo "<script>alert('Quantidade acima do estoque atual.')</script>";

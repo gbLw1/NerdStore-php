@@ -38,7 +38,7 @@ class PedidoDAO extends Conexao
 
     public function AdicionarPedidoDetalhe($PedidoId, $PedidoItem)
     {
-        $sql = "INSERT INTO pedido_detalhe (pedido, produto, descricao, valor, quantidade) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO pedidos_detalhe (pedido, produto, descricao, valor, quantidade) VALUES (?,?,?,?,?)";
 
         $stm = $this->db->prepare($sql);
 
@@ -84,7 +84,7 @@ class PedidoDAO extends Conexao
     public function ObterPedidoDetalhePorPedidoID($PedidoID)
     {
         $sql = "SELECT p.codigo, p.foto, p.descricao, pe.valor, pe.quantidade 
-         FROM produtos p INNER JOIN pedido_detalhe pe ON (pe.produto = p.codigo) WHERE pe.pedido = ?";
+         FROM produtos p INNER JOIN pedidos_detalhe pe ON (pe.produto = p.codigo) WHERE pe.pedido = ?";
         
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $PedidoID);

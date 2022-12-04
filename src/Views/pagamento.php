@@ -18,28 +18,46 @@
 
 <body>
 
-    <?php require_once "../header.php" ?>
+    <?php require_once "header.php" ?>
 
     <?php 
         if(isset($_POST["pagamento"]))
         {
-            require "../Controllers/MainController.php";
-            require "../Controllers/CarrinhoController.php";
-            require "../Controllers/PedidoController.php";
+            require_once "../Controllers/MainController.php";
+            require_once "../Controllers/CarrinhoController.php";
+            require_once "../Controllers/ProdutoController.php";
+            require_once "../Controllers/PedidoController.php";
 
             $carrinhoController = new CarrinhoController();
             $pedidoController = new PedidoController();
+            $produtoController = new ProdutoController();
             $carrinhoItens = $carrinhoController->ObterCarrinhoItens($_SESSION["codigo"]);
 
             if(count($carrinhoItens) <= 0)
             {
                 echo "<script>alert('O carrinho não possui itens.')</script>";
-                header("location:../index.php");
+                header("location:index.php");
             }
 
             $valor_total = 0.0;
             foreach($carrinhoItens as $item)
             {
+                $produto = $produtoController->ObterProdutoPorCodigo($item->produtoCodigo);
+
+                if($produto[0]->estoque < $item->quantidade)
+                {
+                    echo "<script>alert('O produto {$item->descricao} possui somente {$produto[0]->estoque} em estoque')</script>";
+                    header("location:carrinho.php");
+                    return;
+                }
+
+                else if($produto[0]->ativo == 0)
+                {
+                    echo "<script>alert('O produto {$item->descricao} não está mais ativo, remova o produto do carrinho para continuar')</script>";
+                    header("location:carrinho.php");
+                    return;
+                }
+
                 $valor_total += $item->valor;
             }
 
@@ -50,6 +68,8 @@
             {
                 $pedidoController->AdicionarPedidoDetalhe($pedido[0]->codigo, $item);
             }
+
+            $carrinhoController->ExcluirCarrinho($_SESSION["codigo"]);
             
         }
     ?>
@@ -93,7 +113,7 @@
     </main>
 
 
-    <?php require_once "../footer.php" ?>
+    <?php require_once "footer.php" ?>
 
 </body>
 
