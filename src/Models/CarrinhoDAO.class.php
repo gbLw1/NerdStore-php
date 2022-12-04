@@ -23,10 +23,24 @@ class CarrinhoDAO extends Conexao
                     p.valor as valor,
                     c.quantidade as quantidade,
                     p.codigo as produtoCodigo,
-                    p.foto as produtoFoto,
-                    c.valor_total as valorTotal
+                    p.foto as produtoFoto
                     FROM carrinhos c INNER JOIN produtos p ON (c.produto = p.codigo)
                     where c.usuario = ?";
+
+        $stm = $this->db->prepare($sql);
+
+        $stm->bindValue(1, $userId);
+        $stm->execute();
+
+        $this->db = null;
+
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function ObterValorTotalCarrinho($userId)
+    {
+        $sql = "SELECT SUM(p.valor) AS total FROM produtos p INNER JOIN carrinhos c ON (p.codigo = c.produto)
+                WHERE c.usuario = ? GROUP BY c.usuario";
 
         $stm = $this->db->prepare($sql);
 

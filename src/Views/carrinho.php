@@ -53,6 +53,7 @@
 
                         <?php 
                             $carrinhoItens = $controller->ObterCarrinhoItens($_SESSION["codigo"]);
+                            $valorTotalCarrinho = $controller->ObterValorTotalCarrinho($_SESSION["codigo"]);
 
                             if(is_array($carrinhoItens) && count($carrinhoItens) > 0)
                             {
@@ -119,14 +120,31 @@
 
                         </tbody>
                     </table>
+                        <?php
+                         
+                            if(count($carrinhoItens) <= 0)
+                            {
+                                echo "<div class='card-body border-top'>
+                                <a class='btn btn-primary disabled float-md-right' role='button' aria-disabled='true'>
+                                    Finalizar Compra <i class='fa fa-chevron-right'></i> </a>
+                                <a class='btn btn-light' href='index.php'>
+                                    <i class='fa fa-chevron-left'></i> Continuar Comprando
+                                </a>
+                            </div>";
+                            }
 
-                    <div class="card-body border-top">
-                        <a class="btn btn-primary float-md-right">
-                            Finalizar Compra <i class="fa fa-chevron-right"></i> </a>
-                        <a class="btn btn-light">
-                            <i class="fa fa-chevron-left"></i> Continuar Comprando
-                        </a>
-                    </div>
+                            else
+                            {
+                                echo "<div class='card-body border-top'>
+                                <a class='btn btn-primary float-md-right' href='pagamento.php'>
+                                    Finalizar Compra <i class='fa fa-chevron-right'></i> </a>
+                                <a class='btn btn-light' href='index.php'>
+                                    <i class='fa fa-chevron-left'></i> Continuar Comprando
+                                </a>
+                            </div>";
+                            }
+                         ?>
+                    
                 </div>
 
 
@@ -139,7 +157,7 @@
                             <dd class="text-right h5">
                                 <strong>
                                     <?php
-                                        $valorTotalFormatado = number_format($carrinhoItens[0]->valorTotal); 
+                                        $valorTotalFormatado = number_format($valorTotalCarrinho, 2, ',', '.'); 
                                         echo "R$ {$valorTotalFormatado}"; 
                                     ?>
                                 </strong>

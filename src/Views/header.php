@@ -32,9 +32,9 @@
                             echo "<div class='widget-header'>
                                             <small class='title text-muted'>Bem Vindo!</small>
                                             <div>
-                                                <a href='Views/cadastro-usuario.php'>Pedidos</a> <span> | </span>
-                                                <a href='Views/carrinho.php'> Carrinho ({$carrinhoController->ObterCarrinhoItensQuantidade($_SESSION["codigo"])})</a> <span> | </span>
-                                                <a href='Views/logout.php'> Logout</a>
+                                                <a href='cadastro-usuario.php'>Pedidos</a> <span> | </span>
+                                                <a href='carrinho.php'> Carrinho ({$carrinhoController->ObterCarrinhoItensQuantidade($_SESSION["codigo"])})</a> <span> | </span>
+                                                <a href='logout.php'> Logout</a>
                                             </div>
                                         </div>";
                         }
@@ -43,8 +43,8 @@
                             echo "<div class='widget-header'>
                                             <small class='title text-muted'>Bem Vindo!</small>
                                             <div>
-                                                <a href='Views/cadastro-usuario.php'>Criar Conta</a> <span> | </span>
-                                                <a href='Views/login.php'> Login</a>
+                                                <a href='cadastro-usuario.php'>Criar Conta</a> <span> | </span>
+                                                <a href='login.php'> Login</a>
                                             </div>
                                         </div>";
                         }
