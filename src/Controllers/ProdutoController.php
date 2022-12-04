@@ -27,7 +27,7 @@ class ProdutoController extends MainController
 
             $this->SalvarImagem($produto->getFotoArquivo());
 
-            header("location:../index.php");
+            header("location:index.php");
         }
     }
 
@@ -88,9 +88,10 @@ class ProdutoController extends MainController
 
             $produtoDAO->AtualizarProduto($produto);
 
-            $this->SalvarImagem($produto->getFotoArquivo());
+            if($produto->getFoto() != null || !empty($produto->getFoto()))
+                $this->SalvarImagem($produto->getFotoArquivo());
 
-            header("location:../index.php");
+            header("location:index.php");
         }
     }
 

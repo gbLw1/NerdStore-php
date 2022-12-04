@@ -34,13 +34,14 @@
             // preencher args do produto
             $produto = new Produto
             (
+              codigo: $result[0]->codigo,
               descricao: $_POST["descricao"],
               valor: floatval(str_replace(",", ".", $_POST["valor"])),
               estoque: intval($_POST["estoque"]),
               ativo: true,
               observacao: $_POST["observacao"],
-              foto: $_FILES["foto"]["name"],
-              fotoArquivo: $_FILES["foto"]
+              foto: empty($_FILES["foto"]["name"]) ? $result[0]->foto : $_FILES["foto"]["name"],
+              fotoArquivo: empty($_FILES["foto"]["name"]) ? null : $_FILES["foto"]
             );
   
             // func: cadastrar produto (controller)
@@ -49,7 +50,7 @@
         }
         else
         {
-          header("location:../index.php");
+          header("location:index.php");
         }
 
   ?>
@@ -78,15 +79,15 @@
 
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Observação</label>
-      <textarea class="form-control" value="<?php echo $result[0]->observacao;?>" name="observacao" id="observacao" rows="3"></textarea>
+      <textarea class="form-control" name="observacao" id="observacao" rows="3"><?php echo $result[0]->observacao;?></textarea>
     </div>
 
     <div class="input-group mb-3 mt-2">
       <div class="custom-file">
-        <input type="file" class="custom-file-input" name="foto" id="foto" accept="image/*">
+        <input type="file" value="<?php echo $result[0]->foto;?>" class="custom-file-input" name="foto" id="foto" accept="image/*">
       </div>
       <div class="form-group">
-          <img src="<?php echo $result[0]->foto;?>" id="imgPreview">
+          <img src="produtos_imagens/<?php echo $result[0]->foto;?>" id="imgPreview">
       </div>
     </div>
 
