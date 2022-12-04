@@ -16,59 +16,41 @@
 
 <body class="text-center">
 
-<?php require_once "header.php" ?>
+  <?php 
+    require_once "header.php";
+    require_once "Controllers/MainController.php";
+    require_once "Controllers/ProdutoController.php";
+  ?>
 
   <div class="container m-auto" style="padding-top: 10px;min-height:100vh;">
     <div class="row">
+    <?php
+      $controller = new ProdutoController();
+      $listaProdutos = $controller->ObterListaProdutosAtivos();
 
-    <div class="col-md-3 pt-5">
-      <div class="card card-product-grid" style="width: 18rem;">
-        <a href="/products/2c30c0aa-ce2d-4718-b106-b1dcab869e3c" style="text-transform: none;">
-          <img src="https://devstore.academy/images/catalog/caneca1--batman.jpg" class="card-img-top" alt="...">
-        </a>
-        <div class="card-body">
-          <h5 class="card-title">Caneca Batman Amarela</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <div class="d-flex justify-content-center align-items-center">
-            <p class="btn btn-success" style="margin: 0 5px 0 0;"><b>R$ 5000000,00</b></p>
-            <a href="/products/2c30c0aa-ce2d-4718-b106-b1dcab869e3c" class="btn btn-primary">Ver produto</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3 pt-5">
-      <div class="card card-product-grid" style="width: 18rem;">
-        <a href="/products/2c30c0aa-ce2d-4718-b106-b1dcab869e3c" style="text-transform: none;">
-          <img src="https://devstore.academy/images/catalog/caneca-Batman.jpg" class="card-img-top" alt="...">
-        </a>
-        <div class="card-body">
-          <h5 class="card-title">Caneca Batman Preta</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <div class="d-flex justify-content-center align-items-center">
-            <p class="btn btn-success" style="margin: 0 5px 0 0;"><b>R$ 5000000,00</b></p>
-            <a href="/products/2c30c0aa-ce2d-4718-b106-b1dcab869e3c" class="btn btn-primary">Ver produto</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-3 pt-5">
-      <div class="card card-product-grid" style="width: 18rem;">
-        <a href="/products/2c30c0aa-ce2d-4718-b106-b1dcab869e3c" style="text-transform: none;">
-          <img src="https://devstore.academy/images/catalog/caneca-bbt.webp" class="card-img-top" alt="...">
-        </a>
-        <div class="card-body">
-          <h5 class="card-title">Caneca Batman vermelha</h5>
-          <p class="card-text">Caneca do batman, do batman morcego, vermelho do batman, tem o batman nela, é vermelho.</p>
-          <div class="d-flex justify-content-center align-items-center">
-            <p class="btn btn-success" style="margin: 0 5px 0 0;"><b>R$ 5000000,00</b></p>
-            <a href="/products/2c30c0aa-ce2d-4718-b106-b1dcab869e3c" class="btn btn-primary">Ver produto</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
+      if(is_array($listaProdutos))
+      {
+        foreach($listaProdutos as $produto)
+        {
+          $valorFormatado = number_format($produto->valor, 2, ',', '.');
+          echo "<div class='col-md-3 pt-5'>
+            <div class='card card-product-grid' style='width: 18rem;'>
+              <a href='Views/detalhes-produto.php?codigo={$produto->codigo}' style='text-transform: none;'>
+                <img src='Views/produtos_imagens/{$produto->foto}' class='card-img-top' alt='...'>
+              </a>
+              <div class='card-body'>
+                <h5 class='card-title'>{$produto->descricao}</h5>
+                <p class='card-text'>{$produto->observacao}</p>
+                <div class='d-flex justify-content-center align-items-center'>
+                  <p class='btn btn-success' style='margin: 0 5px 0 0;'><b>R$ {$valorFormatado}</b></p>
+                  <a href='Views/detalhes-produto.php?codigo={$produto->codigo}' class='btn btn-primary'>Ver produto</a>
+                </div>
+              </div>
+            </div>
+          </div>";
+        }
+      }
+    ?>
 
     </div>
 

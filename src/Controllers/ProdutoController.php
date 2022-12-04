@@ -69,6 +69,18 @@ class ProdutoController extends MainController
         $uploadFile = CAMINHO_IMG . $imagem["name"];
         move_uploaded_file($imagem["tmp_name"], $uploadFile);
     }
+
+    public function ObterListaProdutosAtivos()
+    {
+        $produtoDAO = new ProdutoDAO();
+        return $produtoDAO->ObterProdutosAtivos();
+    }
+
+    public function ObterProdutoPorCodigo($codigo)
+    {
+        $produtoDAO = new ProdutoDAO();
+        return $produtoDAO->ObterProdutoPorId($codigo);
+    }
 }
 
 ?>

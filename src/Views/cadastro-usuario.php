@@ -137,7 +137,7 @@
       <button class="w-100 btn btn-lg btn-primary my-4" name="cadastrar" type="submit">Cadastrar</button>
       <div class="d-flex">
           <p style="margin-right:5px;">Já possui uma conta? </p>
-          <a href="">Faça Login.</a>
+          <a href="login.php">Faça Login.</a>
       </div>
     </form>
 

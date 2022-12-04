@@ -51,7 +51,7 @@
     <button class="w-100 btn btn-lg btn-primary" name="entrar" type="submit">Entrar</button>
     <div class="d-flex">
         <p style="margin-right:5px;">Não possui uma conta? </p>
-        <a href="">Clique Aqui</a>
+        <a href="cadastro-usuario.php">Clique Aqui</a>
     </div>
   </form>
 
