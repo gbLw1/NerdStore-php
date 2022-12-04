@@ -10,7 +10,7 @@ class PedidoDAO extends Conexao
      
     public function ObterPedidosPorUsuarioID($UsuarioID)
     {
-        $sql = "SELECT codigo, usuario, valor_total FROM pedidos WHERE usuario = ?";
+        $sql = "SELECT codigo, usuario, valor_total FROM pedidos WHERE usuario = ? ORDER BY codigo DESC";
 
         $stm = $this->db->prepare($sql);
 

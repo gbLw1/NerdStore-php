@@ -40,8 +40,11 @@
           $senha = $_POST["senha"];
           $confirmarSenha = $_POST["confirmarSenha"];
 
-          if($senha != $confirmarSenha)
+          if($senha != $confirmarSenha){
             echo "<script>alert('As senhas não conferem.')</script>";
+            return;
+          }
+            
 
           $usuario = new Usuario
           (

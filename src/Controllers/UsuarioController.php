@@ -52,6 +52,13 @@ class UsuarioController extends MainController
             $usuarioDAO = new UsuarioDAO();
             $enderecoDAO = new EnderecoDAO();
 
+            $usuarioJaCadastrado = $this->UsuarioJaCadastrado($usuario->getEmail());
+
+            if($usuarioJaCadastrado){
+                echo "<script>alert('Este email já está cadastrado.')</script>";
+                return;
+            }
+
             $enderecoDAO->AdicionarEndereco($usuario->getEndereco());
 
             $endereco = $enderecoDAO->ObterEnderecoPorLogradouroNumeroBairro($usuario->getEndereco()->getLogradouro(),
@@ -112,6 +119,17 @@ class UsuarioController extends MainController
         }
 
         return $erros;
+    }
+
+    public function UsuarioJaCadastrado($email)
+    {
+        $usuarioDAO = new UsuarioDAO();
+        $usuario = $usuarioDAO->ObterUsuarioPorEmail($email);
+
+        if(is_array($usuario) && count($usuario) > 0)
+            return true;
+
+        return false;
     }
 }
 
