@@ -15,33 +15,26 @@ require_once realpath(dirname(__FILE__)) . "/../Models/ProdutoDAO.class.php";
 
 class CarrinhoController extends MainController
 {
-    public function ObterCarrinho($id)
+    public function ObterCarrinhoItens($userId)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinho = $carrinhoDAO->ObterCarrinho($id);
+        $carrinho = $carrinhoDAO->ObterCarrinhoItens($userId);
 
         return $carrinho;
     }
 
-    public function ObterCarrinhoItensQuantidade($id)
+    public function ObterCarrinhoItensQuantidade($userId)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinho = $carrinhoDAO->ObterCarrinho($id);
+        $carrinhoQtde = $carrinhoDAO->ObterQuantidadeItensCarrinho($userId);
 
-        return count($carrinho);
+        return $carrinhoQtde;
     }
 
-    public function AddItem($id, $idProduto, $quantidade)
+    public function AddItem($userId, $produto, $quantidade)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinho = $carrinhoDAO->ObterCarrinho($id);
-
-        $produto = new Produto();
-        $produto->setId($idProduto);
-
-        $carrinho->AddItem($produto, $quantidade);
-
-        $carrinhoDAO->AtualizarCarrinho($carrinho);
+        $carrinho = $carrinhoDAO->AddCarrinhoItem($userId, $produto, $quantidade);
     }
 
     public function AtualizarItemQuantidade($id, $idProduto, $quantidade)
