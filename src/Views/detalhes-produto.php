@@ -52,7 +52,7 @@
                                     <var class='price h4'>R$ {$valorFormatado}</var>
                                 </div>";
 
-                if($produto[0]->estoque >= 0){
+                if($produto[0]->estoque > 0){
                     echo "<h5>{$produto[0]->observacao}</h5><br/>
                     <p> Apenas {$produto[0]->estoque} em estoque!</p>
                     <hr>
@@ -73,7 +73,7 @@
 
                         </div>
                         <br/>
-                        <button type='submit' class='btn  btn-outline-primary'>
+                        <button type='submit' class='btn btn-primary'>
                             <span class='text'>Adicionar ao Carrinho</span> <i class='fas fa-shopping-cart'> &nbsp;</i>
                         </button>
 
