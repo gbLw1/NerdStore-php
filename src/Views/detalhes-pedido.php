@@ -20,7 +20,7 @@
 <body class="text-center">
 
   <?php 
-    require_once "../header.php";
+    require_once "header.php";
     require_once "../Controllers/MainController.php";
     require_once "../Controllers/PedidoController.php";
 
@@ -109,7 +109,7 @@
 
   </div>
 
-  <?php require_once "../footer.php"; ?>
+  <?php require_once "footer.php"; ?>
 
 </body>
 

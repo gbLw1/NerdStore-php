@@ -42,9 +42,10 @@ class PedidoController extends MainController
         return $pedido;
     }
 
-    public function AdicionarPedidoDetalhe($pedidoId, $produto, $quantidade)
+    public function AdicionarPedidoDetalhe($pedidoId, $item)
     {
-        $pedidoitem = new PedidoItem($produto->codigo, $produto->foto, $produto->descricao, $produto->valor, $quantidade);
+        $pedidoitem = new PedidoItem($item->produtoCodigo, $item->produtoFoto, 
+        $item->descricao, $item->valor, $item->quantidade);
 
         $pedidoDAO = new PedidoDAO();
         $pedidoDAO->AdicionarPedidoDetalhe($pedidoId, $pedidoitem);

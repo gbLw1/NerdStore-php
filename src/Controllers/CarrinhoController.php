@@ -26,9 +26,9 @@ class CarrinhoController extends MainController
     public function ObterCarrinhoItensQuantidade($id)
     {
         $carrinhoDAO = new CarrinhoDAO();
-        $carrinho = $carrinhoDAO->ObterCarrinho($id);
+        $carrinho = $carrinhoDAO->ObterQuantidadeItensCarrinho($id);
 
-        return count($carrinho);
+        return $carrinho[0]->total;
     }
 
     public function AddItem($id, $idProduto, $quantidade)

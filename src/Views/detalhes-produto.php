@@ -16,7 +16,7 @@
 <body class="text-center">
 
   <?php 
-    require_once "../header.php"; 
+    require_once "header.php"; 
     require_once "../Controllers/MainController.php";
     require_once "../Controllers/ProdutoController.php";
   ?>
@@ -56,7 +56,7 @@
                     echo "<h5>{$produto[0]->observacao}</h5><br/>
                     <p> Apenas {$produto[0]->estoque} em estoque!</p>
                     <hr>
-
+                        <input type='hidden' value='{$produto[0]->codigo}' />
                         <div class='form-row'>
                             <div class='form-group col-md flex-grow-0'>
                                 <label>Quantidade</label>
@@ -73,7 +73,7 @@
 
                         </div>
                         <br/>
-                        <button type='submit' class='btn btn-primary'>
+                        <button type='submit' class='btn btn-primary' name='adicionarAoCarrinho'>
                             <span class='text'>Adicionar ao Carrinho</span> <i class='fas fa-shopping-cart'> &nbsp;</i>
                         </button>
 
@@ -106,12 +106,17 @@
             }
         }
 
+        if($_POST['adicionarAoCarrinho'])
+        {
+
+        }
+
     ?>
     
 
   </div>
 
-<?php require_once "../footer.php" ?>
+<?php require_once "footer.php" ?>
 
 </body>
 </html>
