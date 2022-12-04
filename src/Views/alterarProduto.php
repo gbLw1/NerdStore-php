@@ -44,7 +44,7 @@
               fotoArquivo: empty($_FILES["foto"]["name"]) ? null : $_FILES["foto"]
             );
   
-            // func: cadastrar produto (controller)
+            // func: alterar produto (controller)
             $controller->AtualizarProduto($produto);
           }
         }

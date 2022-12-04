@@ -6,7 +6,7 @@
   - [ ] listagem de produtos
   - [x] cadastro produto
   - [x] alterar produto
-  - [ ] excluir produto
+  - [x] excluir produto
 
 - Auth
   - [x] cadastro usuário

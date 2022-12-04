@@ -26,10 +26,10 @@
     <?php
         if($_GET)
         {
-            $codigo = $_GET["codigo"];
+            $produtoId = $_GET["id"];
             $controller = new ProdutoController();
 
-            $produto = $controller->ObterProdutoPorCodigo($codigo);
+            $produto = $controller->ObterProdutoPorCodigo($produtoId);
 
             if(is_array($produto))
             {

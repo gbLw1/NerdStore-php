@@ -35,7 +35,7 @@
           $valorFormatado = number_format($produto->valor, 2, ',', '.');
           echo "<div class='col-md-3 pt-5'>
             <div class='card card-product-grid' style='width: 18rem;'>
-              <a href='detalhes-produto.php?codigo={$produto->codigo}' style='text-transform: none;'>
+              <a href='detalhes-produto.php?id={$produto->codigo}' style='text-transform: none;'>
                 <img src='produtos_imagens/{$produto->foto}' class='card-img-top' alt='...'>
               </a>
               <div class='card-body'>
@@ -43,7 +43,7 @@
                 <p class='card-text'>{$produto->observacao}</p>
                 <div class='d-flex justify-content-center align-items-center'>
                   <p class='btn btn-success' style='margin: 0 5px 0 0;'><b>R$ {$valorFormatado}</b></p>
-                  <a href='detalhes-produto.php?codigo={$produto->codigo}' class='btn btn-primary'>Ver produto</a>
+                  <a href='detalhes-produto.php?id={$produto->codigo}' class='btn btn-primary'>Ver produto</a>
                 </div>
               </div>
             </div>

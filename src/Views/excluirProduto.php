@@ -9,48 +9,98 @@
 </head>
 <body>
 
+<?php
+        require_once "../Models/Produto.class.php";
+        require_once "../Controllers/MainController.php";
+        require_once "../Controllers/ProdutoController.php";
+
+        $controller = new ProdutoController();
+
+        $usuarioAutenticado = $controller->UsuarioEstaAutenticado();
+        $usuarioAdm = $controller->UsuarioAdm();
+
+        if($usuarioAutenticado && $usuarioAdm)
+        {
+          if($_GET)
+          {
+            $produto = new Produto($_GET["id"]);
+            $result = $controller->ObterProdutoPorCodigo($_GET["id"]);
+          }
+
+          // verifica se o formulário foi submetido
+          // através do atributo "name" do button
+          if(isset($_POST["excluir"]))
+          {
+            // preencher args do produto
+            $produto = new Produto(codigo: $_GET["id"]);
+  
+            // func: excluir produto (controller)
+            $controller->AtualizarProduto($produto->getCodigo());
+          }
+        }
+        else
+        {
+          header("location:index.php");
+        }
+
+  ?>
+
 <div class="container py-5">
   <h1>Excluir Produto</h1>
 
-  <form>
+  <form action="#" method="POST" enctype="multipart/form-data">
+
+    <input type="hidden" name="codigo" value="<?php echo $result[0]->codigo;?>">
+
     <div class="form-group">
       <label for="exampleFormControlInput1">Descrição</label>
-      <input disabled type="text" class="form-control" id="descricao">
+      <input type="text" class="form-control" disabled value="<?php echo $result[0]->descricao;?>" name="descricao" id="descricao">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlInput1">Valor</label>
-      <input disabled type="text" class="form-control" id="valor">
+      <input type="text" class="form-control" disabled value="<?php echo $result[0]->valor;?>" name="valor" id="valor">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlInput1">Estoque</label>
-      <input disabled type="number" class="form-control" id="estoque">
+      <input type="number" class="form-control" disabled value="<?php echo $result[0]->estoque;?>" name="estoque" id="estoque">
     </div>
 
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Observação</label>
-      <textarea disabled class="form-control" id="observacao" rows="3"></textarea>
+      <textarea class="form-control" disabled name="observacao" id="observacao" rows="3"><?php echo $result[0]->observacao;?></textarea>
     </div>
 
     <div class="input-group mb-3 mt-2">
       <div class="custom-file">
-        <input disabled type="file" class="custom-file-input" id="foto">
+        <input type="file" disabled value="<?php echo $result[0]->foto;?>" class="custom-file-input" name="foto" id="foto" accept="image/*">
+      </div>
+      <div class="form-group">
+          <img src="produtos_imagens/<?php echo $result[0]->foto;?>" id="imgPreview">
       </div>
     </div>
 
     <div class="py-2 d-flex justify-content-end">
       <div class="d-flex">
-        <button style="margin-right:10px;" type="button" class="btn btn-primary mb-2">Cancelar</button>
+        <button style="margin-right:10px;" type="button" class="btn btn-danger mb-2">Cancelar</button>
       <div>
       
       <div class="d-flex">
-        <button type="submit" class="btn btn-danger mb-2">Excluir</button>
+        <button class="btn btn-primary mb-2" name="excluir" type="submit">Excluir</button>
       </div>
       
     </div>
   </form>
 </div>
+<script>
+  foto.onchange = evt => {
+    const [file] = foto.files
+    if(file){
+      imgPreview.src = URL.createObjectURL(file)
+    } 
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
