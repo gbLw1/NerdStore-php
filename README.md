@@ -19,7 +19,7 @@
 
 - Carrinho
   - [x] qtde (header)
-  - [ ] tela carrinho
+  - [x] tela carrinho
 
 - Pedidos
   - [x] meus pedidos
