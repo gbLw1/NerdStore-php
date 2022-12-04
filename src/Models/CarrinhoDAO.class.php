@@ -16,7 +16,7 @@ class CarrinhoDAO extends Conexao
     */
 
     // $userId é o Id do usuário vindo da session storage
-    public function ObterCarrinho($userId)
+    public function ObterCarrinhoItens($userId)
     {
         $sql = "SELECT c.codigo as codigo,
                     p.descricao as descricao,
