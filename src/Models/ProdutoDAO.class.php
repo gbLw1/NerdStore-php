@@ -4,10 +4,10 @@ class ProdutoDAO extends Conexao
 {
     public function __construct()
     {
-        parent:: __construct();
+        parent::__construct();
     }
 
-     
+
     public function ObterProdutoPorId($ProdutoID)
     {
         $sql = "SELECT codigo, descricao, valor, estoque, ativo, observacao,
@@ -27,7 +27,7 @@ class ProdutoDAO extends Conexao
     {
         $sql = "SELECT codigo, descricao, valor, estoque, ativo, observacao,
         foto FROM produtos WHERE ativo = 1";
-        
+
         $stm = $this->db->prepare($sql);
 
         $stm->execute();
@@ -41,7 +41,7 @@ class ProdutoDAO extends Conexao
     {
         $sql = "SELECT codigo, descricao, valor, estoque, ativo, observacao,
         foto FROM produtos";
-        
+
         $stm = $this->db->prepare($sql);
 
         $stm->execute();
@@ -51,13 +51,13 @@ class ProdutoDAO extends Conexao
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    
+
     public function AdicionarProduto(Produto $produto)
     {
         $sql = "INSERT INTO produtos (descricao, valor, estoque, ativo, observacao,
         foto) VALUES (?,?,?,?,?,?)";
-        
-        $stm = $this->db->prepare($sql); 
+
+        $stm = $this->db->prepare($sql);
 
         $stm->bindValue(1, $produto->getDescricao());
         $stm->bindValue(2, $produto->getValor());
@@ -65,9 +65,9 @@ class ProdutoDAO extends Conexao
         $stm->bindValue(4, 1);
         $stm->bindValue(5, $produto->getObservacao());
         $stm->bindValue(6, $produto->getFoto());
-        
+
         $stm->execute();
-        
+
         $this->db = null;
     }
 
@@ -75,8 +75,8 @@ class ProdutoDAO extends Conexao
     {
         $sql = "UPDATE produtos SET descricao = ?, valor = ?, estoque = ?, ativo = ?, observacao = ?,
         foto = ? WHERE codigo = ?";
-        
-        $stm = $this->db->prepare($sql); 
+
+        $stm = $this->db->prepare($sql);
 
         $stm->bindValue(1, $produto->getDescricao());
         $stm->bindValue(2, $produto->getValor());
@@ -85,9 +85,9 @@ class ProdutoDAO extends Conexao
         $stm->bindValue(5, $produto->getObservacao());
         $stm->bindValue(6, $produto->getFoto());
         $stm->bindValue(7, $produto->getCodigo());
-        
+
         $stm->execute();
-        
+
         $this->db = null;
     }
 

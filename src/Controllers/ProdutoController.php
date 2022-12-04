@@ -8,25 +8,19 @@ define("CAMINHO_IMG", "../Views/produtos_imagens/");
 
 class ProdutoController extends MainController
 {
-    
-
     public function CadastrarProduto(Produto $produto)
     {
         $erros = $this->ValidarArgsProduto($produto);
 
-        if(count($erros) > 0)
-        {
+        if (count($erros) > 0) {
             $mensagem = "";
 
-            foreach($erros as $erro)
-            {
+            foreach ($erros as $erro) {
                 $mensagem .= $erro . "\\n";
             }
 
             echo "<script>alert('$mensagem')</script>";
-        }
-        else
-        {
+        } else {
             $produtoDAO = new ProdutoDAO();
 
             $produtoDAO->AdicionarProduto($produto);
@@ -41,23 +35,19 @@ class ProdutoController extends MainController
     {
         $erros = array();
 
-        if(trim($produto->getDescricao()) == "")
-        {
+        if (trim($produto->getDescricao()) == "") {
             $erros[] = "Descrição não pode estar vazio.";
         }
 
-        if(trim($produto->getValor()) == "")
-        {
+        if (trim($produto->getValor()) == "") {
             $erros[] = "Valor não pode estar vazio.";
         }
 
-        if(trim($produto->getEstoque()) == "")
-        {
+        if (trim($produto->getEstoque()) == "") {
             $erros[] = "Estoque não pode estar vazio.";
         }
 
-        if(trim($produto->getFoto()) == "")
-        {
+        if (trim($produto->getFoto()) == "") {
             $erros[] = "Foto não pode estar vazia.";
         }
 
@@ -74,6 +64,40 @@ class ProdutoController extends MainController
     {
         $produtoDAO = new ProdutoDAO();
         return $produtoDAO->ObterProdutosAtivos();
+    }
+
+    // ProdutoController: (verificar se usuário é ADM -> método da MainController)
+    //  - Alterar
+    //  - Excluir
+    //  - Detalhes (Get by Id)
+
+    public function AtualizarProduto(Produto $produto)
+    {
+        $erros = $this->ValidarArgsProduto($produto);
+
+        if (count($erros) > 0) {
+            $mensagem = "";
+
+            foreach ($erros as $erro) {
+                $mensagem .= $erro . "\\n";
+            }
+
+            echo "<script>alert('$mensagem')</script>";
+        } else {
+            $produtoDAO = new ProdutoDAO();
+
+            $produtoDAO->AtualizarProduto($produto);
+
+            $this->SalvarImagem($produto->getFotoArquivo());
+
+            header("location:../index.php");
+        }
+    }
+
+    public function ExcluirProduto($codigo)
+    {
+        $produtoDAO = new ProdutoDAO();
+        $produtoDAO->DeletarProduto($codigo);
     }
 
     public function ObterProdutoPorCodigo($codigo)
