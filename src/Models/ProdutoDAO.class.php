@@ -93,7 +93,7 @@ class ProdutoDAO extends Conexao
 
     public function DeletarProduto($ProdutoID)
     {
-        $sql = "UPDATE produto SET ativo = 0 WHERE codigo = ?";
+        $sql = "UPDATE produtos SET ativo = 0 WHERE codigo = ?";
 
         $stm = $this->db->prepare($sql);
 

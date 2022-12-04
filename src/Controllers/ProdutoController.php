@@ -99,6 +99,8 @@ class ProdutoController extends MainController
     {
         $produtoDAO = new ProdutoDAO();
         $produtoDAO->DeletarProduto($codigo);
+
+        header("location:painel-adm.php");
     }
 
     public function ObterProdutoPorCodigo($codigo)
