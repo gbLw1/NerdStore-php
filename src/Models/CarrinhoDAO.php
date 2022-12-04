@@ -18,13 +18,7 @@ class CarrinhoDAO extends Conexao
     // $userId é o Id do usuário vindo da session storage
     public function ObterCarrinho($userId)
     {
-        $sql = "SELECT c.codigo AS Codigo
-                     , p.descricao AS Produto
-                     , p.valor AS Valor
-                     , c.quantidade AS Quantidade
-                FROM carrinhos c
-                INNER JOIN produtos p ON (c.produto = p.codigo)
-                WHERE c.usuario = ?";
+        $sql = "SELECT codigo, usuario, produto, quantidade FROM carrinhos WHERE usuario = ?";
 
         $stm = $this->db->prepare($sql);
 

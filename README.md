@@ -22,8 +22,8 @@
   - [ ] tela carrinho
 
 - Pedidos
-  - [ ] meus pedidos
-  - [ ] pedido detalhe
+  - [x] meus pedidos
+  - [x] pedido detalhe
 
 - Pagamento
-  - [ ] pagamento
+  - [x] pagamento
