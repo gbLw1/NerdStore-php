@@ -3,7 +3,7 @@
 ### Progresso de implementação das controllers nas telas
 
 - 🔐 painel adm 🔐
-  - [ ] listagem de produtos
+  - [x] listagem de produtos
   - [x] cadastro produto
   - [x] alterar produto
   - [x] excluir produto

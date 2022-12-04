@@ -23,15 +23,12 @@
 
         public function UsuarioAdm()
         {
-            $tipoUsuario = $_SESSION["tipo_usuario"];
-            if ($tipoUsuario != 2)
-            {
+            if(!isset($_SESSION["tipo_usuario"]))
                 return false;
-            }
-            else
-            {
-                return true;
-            }
+
+            $tipoUsuario = $_SESSION["tipo_usuario"];    
+            
+            return $tipoUsuario == 2 ? true : false;
         }
 
     }

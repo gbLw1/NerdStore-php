@@ -93,7 +93,7 @@
 
     <div class="py-2 d-flex justify-content-end">
       <div class="d-flex">
-        <button style="margin-right:10px;" type="button" class="btn btn-danger mb-2">Cancelar</button>
+        <a href="painel-adm.php" style="margin-right:10px;" class="btn btn-danger mb-2">Cancelar</a>
       <div>
       
       <div class="d-flex">

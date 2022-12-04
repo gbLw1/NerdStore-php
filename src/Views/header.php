@@ -26,14 +26,28 @@
                         $carrinhoController = new CarrinhoController();
 
                         $usuarioAutenticado = $carrinhoController->UsuarioEstaAutenticado();
+                        $usuarioAdm = $carrinhoController->UsuarioAdm();
 
-                        if ($usuarioAutenticado)
+                        if ($usuarioAutenticado && !$usuarioAdm)
                         {
                             echo "<div class='widget-header'>
                                             <small class='title text-muted'>Bem Vindo!</small>
                                             <div>
                                                 <a href='pedidos.php'>Pedidos</a> <span> | </span>
                                                 <a href='carrinho.php'> Carrinho ({$carrinhoController->ObterCarrinhoItensQuantidade($_SESSION["codigo"])})</a> <span> | </span>
+                                                <a href='logout.php'> Logout</a>
+                                            </div>
+                                        </div>";
+                        }
+
+                        else if ($usuarioAutenticado && $usuarioAdm)
+                        {
+                            echo "<div class='widget-header'>
+                                            <small class='title text-muted'>Bem Vindo!</small>
+                                            <div>
+                                                <a href='pedidos.php'>Pedidos</a> <span> | </span>
+                                                <a href='carrinho.php'> Carrinho ({$carrinhoController->ObterCarrinhoItensQuantidade($_SESSION["codigo"])})</a> <span> | </span>
+                                                <a href='painel-adm.php'> Administrativo</a>
                                                 <a href='logout.php'> Logout</a>
                                             </div>
                                         </div>";
