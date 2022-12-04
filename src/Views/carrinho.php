@@ -19,10 +19,19 @@
 
 <body class="text-center">
 
-    <?php
-        require_once "../header.php";
-        require_once "../Controllers/MainController.php";
+    <?php 
+    
+        require_once "header.php";
+        require_once "../Controllers/MainController.php"; 
         require_once "../Controllers/CarrinhoController.php";
+
+        $controller = new CarrinhoController();
+
+        $usuarioAutenticado = $controller->UsuarioEstaAutenticado();
+
+        if(!$usuarioAutenticado)
+            header("location:login.php");
+    
     ?>
 
     <div class="container m-auto" style="padding-top: 50px;min-height:100vh;">
@@ -35,99 +44,87 @@
                             <tr class="small text-uppercase">
                                 <th scope="col">Produto</th>
                                 <th scope="col">Valor</th>
-                                <th scope="col">Alterar Quantidade</th>
+                                <th scope="col">Quantidade</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                            $controller = new CarrinhoController();
 
-                            $usuarioAutenticado = $controller->UsuarioEstaAutenticado();
+                        <?php 
+                            $carrinhoItens = $controller->ObterCarrinhoItens($_SESSION["codigo"]);
 
-                            if(!($usuarioAutenticado))
+                            if(is_array($carrinhoItens) && count($carrinhoItens) > 0)
                             {
-                                header("location:../index.php");
-                            }
-                            else
-                            {
-                                $userId = $_SESSION["codigo"];
-                                $carrinhoItens = $controller->ObterCarrinhoItens($userId);
-                                $totalCarrinho = 0;
-
-                                if(is_array($carrinhoItens))
+                                foreach($carrinhoItens as $item)
                                 {
-                                    foreach($carrinhoItens as $item)
-                                    {
-                                        $total = 0;
-                                        $total = $item->valor * $item->quantidade;
-                                        $totalCarrinho .= $total;
-                                        echo "
-                                        <tr>
-                                            <td>
-                                                <figure class='itemside'>
-                                                    <div class='aside'>
-                                                        <img src='{$item->foto}'
-                                                            alt='produto' width='80' height='80' class='img-sm'>
-                                                    </div>
-                                                    <figcaption class='info'>
-                                                        <a href='#'>
-                                                            <h6 style='padding-top: 10px' class='title text-dark'>{$item->descricao}</h6>
-                                                        </a>
-                                                        <p class='text-muted small'>qtde: {$item->quantidade}</p>
-                                                    </figcaption>
-                                                </figure>
-                                            </td>
-                                            <td>
-                                                <div class='price-wrap'>
-                                                    <var class='price'>R$ {$total}</var>
-                                                    <br>
-                                                    <small class='text-muted'>(R$ {$item->valor} cada)</small>
-                                                </div>
-                                            </td>
-                                            <form method='post' action='AtualizarItemCarrinho'>
-                                                <td>
-                                                    <select id='Quantidade' id='qtde' name='Quantidade' class='form-select'>
-                                                        <option value='1'>1</option>
-                                                        <option value='2'>2</option>
-                                                        <option value='3'>3</option>
-                                                        <option value='4'>4</option>
-                                                        <option value='5'>5</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <div class='text-right'>
-                                                        <button type='submit' class='btn btn-success'>
-                                                            <i class='fas fa-sync'></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </form>
-                                            <td>
-                                                <form method='post' action='RemoverItemCarrinho'>
-                                                    <div>
-                                                        <button type='submit' class='btn btn-danger'>
-                                                            <i class='fas fa-trash-alt'></i>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        ";
-                                    }
+
+                                    $valorTotalItemFormatado = number_format($item->valor * $item->quantidade, 2, ',', '.');
+                                    $valorItemFormatado = number_format($item->valor, 2, ',', '.');
+
+                                    echo "<tr>
+                                    <td>
+                                        <figure class='itemside'>
+                                            <div class='aside'>
+                                                <img src='/produtos_imagens/{$item->produtoFoto}'
+                                                    alt='produto' width='80' height='80' class='img-sm'>
+                                            </div>
+                                            <figcaption class='info'>
+                                                <a href='ProdutoDetalhe'>
+                                                    <h6 style='padding-top: 10px' class='title text-dark'>{$item->descricao}</h6>
+                                                </a>
+                                                <p class='text-muted small'>{$item->quantidade}</p>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <div class='price-wrap'>
+                                            <var class='price'>R$ {$valorTotalItemFormatado}</var>
+                                            <small class='text-muted'>R$ {$valorItemFormatado} cada</small>
+                                        </div>
+                                    </td>
+                                    <form method='post' action='#'>
+                                        <input type='hidden' value='{$item->produtoCodigo}' name='produto' />
+                                        <td>
+                                            <select id='Quantidade' id='qtde' name='Quantity' class='form-select'>
+                                                <option value='1'>1</option>
+                                                <option value='2'>2</option>
+                                                <option value='3'>3</option>
+                                                <option value='4'>4</option>
+                                                <option value='5'>5</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div class='text-right'>
+                                                <button type='submit' name='atualizarQuantidade' class='btn btn-success'>
+                                                    <i class='fas fa-sync'></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </form>
+                                    <td>
+                                        <form method='post' action='#' name='removerItem'>
+                                        <input type='hidden' value='{$item->produtoCodigo}' name='produto' />
+                                            <div>
+                                                <button type='submit' class='btn btn-danger'>
+                                                    <i class='fas fa-trash-alt'></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>";
                                 }
                             }
                         ?>
+
                         </tbody>
                     </table>
 
                     <div class="card-body border-top">
+                        <a class="btn btn-primary float-md-right">
+                            Finalizar Compra <i class="fa fa-chevron-right"></i> </a>
                         <a class="btn btn-light">
                             <i class="fa fa-chevron-left"></i> Continuar Comprando
-                        </a>
-                        <a class="btn btn-primary float-md-right">
-                            Finalizar Compra <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
                 </div>
@@ -140,12 +137,17 @@
                         <dl class="dlist-align">
                             <dt>Total:</dt>
                             <dd class="text-right h5">
-                                <strong><?php $totalCarrinho ?></strong>
+                                <strong>
+                                    <?php
+                                        $valorTotalFormatado = number_format($carrinhoItens[0]->valorTotal); 
+                                        echo "R$ {$valorTotalFormatado}"; 
+                                    ?>
+                                </strong>
                             </dd>
                         </dl>
                         <hr>
                         <p class="text-center mb-3">
-                            <img src="../img/payments.png" height="26">
+                            <img src="img/payments.png" height="26">
                         </p>
 
                     </div>
@@ -155,7 +157,7 @@
         </div>
     </div>
 
-    <?php require_once "../footer.php" ?>
+    <?php require_once "footer.php" ?>
 
 </body>
 

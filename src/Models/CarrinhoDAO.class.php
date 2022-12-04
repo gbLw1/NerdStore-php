@@ -18,15 +18,15 @@ class CarrinhoDAO extends Conexao
     // $userId é o Id do usuário vindo da session storage
     public function ObterCarrinhoItens($userId)
     {
-        //$sql = "SELECT codigo, usuario, produto, quantidade FROM carrinhos WHERE usuario = ?";
-        $sql = "SELECT c.codigo
-                        , p.foto
-                        , p.descricao
-                        , p.valor
-                        , c.quantidade
-                FROM carrinhos c
-                INNER JOIN produtos p ON (c.produto = p.codigo)
-                WHERE c.usuario = ?";
+        $sql = "SELECT c.codigo as codigo,
+                    p.descricao as descricao,
+                    p.valor as valor,
+                    c.quantidade as quantidade,
+                    p.codigo as produtoCodigo,
+                    p.foto as produtoFoto,
+                    c.valor_total as valorTotal
+                    FROM carrinhos c INNER JOIN produtos p ON (c.produto = p.codigo)
+                    where c.usuario = ?";
 
         $stm = $this->db->prepare($sql);
 
@@ -40,7 +40,7 @@ class CarrinhoDAO extends Conexao
 
     public function ObterQuantidadeItensCarrinho($userId)
     {
-        $sql = "SELECT COUNT(codigo) FROM carrinhos WHERE usuario = ?";
+        $sql = "SELECT COUNT(codigo) as total FROM carrinhos WHERE usuario = ?";
         
         $stm = $this->db->prepare($sql);
 

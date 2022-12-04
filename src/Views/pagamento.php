@@ -25,13 +25,11 @@
         {
             require "../Controllers/MainController.php";
             require "../Controllers/CarrinhoController.php";
-            require "../Controllers/ProdutoController.php";
             require "../Controllers/PedidoController.php";
 
             $carrinhoController = new CarrinhoController();
             $pedidoController = new PedidoController();
-            $produtoController = new ProdutoController();
-            $carrinhoItens = $carrinhoController->ObterCarrinho($_SESSION["codigo"]);
+            $carrinhoItens = $carrinhoController->ObterCarrinhoItens($_SESSION["codigo"]);
 
             if(count($carrinhoItens) <= 0)
             {
@@ -42,8 +40,7 @@
             $valor_total = 0.0;
             foreach($carrinhoItens as $item)
             {
-                $produto = $produtoController->ObterProdutoPorCodigo($item->produto);
-                $valor_total += $produto[0]->valor;
+                $valor_total += $item->valor;
             }
 
             $pedidoController->AdicionarPedido($_SESSION["codigo"], $valor_total);
@@ -51,8 +48,7 @@
 
             foreach($carrinhoItens as $item)
             {
-                $produto = $produtoController->ObterProdutoPorCodigo($item->produto);
-                $pedidoController->AdicionarPedidoDetalhe($pedido[0]->codigo, $produto[0], $item->quantidade);
+                $pedidoController->AdicionarPedidoDetalhe($pedido[0]->codigo, $item);
             }
             
         }

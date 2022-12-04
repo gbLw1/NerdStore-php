@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-4">
-                    <a class="brand-wrap" href="/showcase">
-                        <img src="/Views/img/logo.png logo.png" alt="logo">
+                    <a class="brand-wrap" href="index.php">
+                        <img src="img/logo.png" alt="logo">
                     </a>
                 </div>
                 <div class="col-lg-5 col-sm-12 pt-2">
@@ -20,8 +20,8 @@
                 <div class="col-lg-4">
                     <div class="d-flex justify-content-end">
                         <?php
-                        require_once "Controllers/MainController.php";
-                        require_once "Controllers/CarrinhoController.php";
+                        require_once "../Controllers/MainController.php";
+                        require_once "../Controllers/CarrinhoController.php";
 
                         $carrinhoController = new CarrinhoController();
 
@@ -33,7 +33,7 @@
                                             <small class='title text-muted'>Bem Vindo!</small>
                                             <div>
                                                 <a href='Views/cadastro-usuario.php'>Pedidos</a> <span> | </span>
-                                                <a href='Views/login.php'> Carrinho ({$carrinhoController->ObterCarrinhoItensQuantidade()})</a> <span> | </span>
+                                                <a href='Views/carrinho.php'> Carrinho ({$carrinhoController->ObterCarrinhoItensQuantidade($_SESSION["codigo"])})</a> <span> | </span>
                                                 <a href='Views/logout.php'> Logout</a>
                                             </div>
                                         </div>";
